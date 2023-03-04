@@ -1,6 +1,4 @@
-# sorting-visualizer-p5js
-
-## Sorting Visualizer made with p5.js
+# Sorting Visualizer made with p5.js
 
 ### How to run:
 1. Clone the repo using git clone.
