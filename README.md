@@ -9,4 +9,4 @@
 4. Done!
 
 ### Future Plans:
- - [] Add more sorting algorithms.
+ - [ ] Add more sorting algorithms.
