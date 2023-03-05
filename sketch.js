@@ -1,23 +1,13 @@
-import { bubbleSort } from "../algo/bubblesort.js";
-import { selectionSort } from "../algo/selectionsort.js";
+import { bubbleSort } from "./algo/bubblesort.js";
 import { heapSort } from "./algo/heapsort.js";
 import { insertionSort } from "./algo/insertionsort.js";
 import { mergeSort } from "./algo/mergesort.js";
-import { quickSort } from "./algo/quicksort.js";
+import { qsort } from "./algo/quicksort.js";
 import { radixSort } from "./algo/radixsort.js";
+import { selectionSort } from "./algo/selectionsort.js";
+import { genericSortBtnListener } from "./helpers/eventListners.js";
 
-import { generateRandomArray } from "./helpers/generateRandomArray.js";
-import { isArraySorted } from "./helpers/isArraySorted.js";
-let values = [];
-let w = 50;
-let frameRate = 120;
-let states = [];
-
-const pivotState = 2;
-const state1 = 0;
-const state2 = 1;
-const sortedState = 100;
-const maxSize = 101;
+import Settings from "./settings.js";
 
 let container = document.getElementById("container");
 let quicksortBtn = document.getElementById("quick-sort");
@@ -28,10 +18,9 @@ let radixSortBtn = document.getElementById("radix-sort");
 let mergeSortBtn = document.getElementById("merge-sort");
 let insertionSortBtn = document.getElementById("insertion-sort");
 let heapSortBtn = document.getElementById("heap-sort");
-// let slider = document.getElementById("array-size");
 
-let sorting = false;
-let sorted = false;
+let settings = new Settings();
+
 new p5((p5) => {
     p5.setup = () => {
         const divPadding = 4;
@@ -39,76 +28,50 @@ new p5((p5) => {
         let canvasHeight = p5.windowHeight - container.offsetHeight;
         // 4 is padding of div container
         p5.createCanvas(p5.windowWidth - divPadding, canvasHeight);
-        p5.frameRate(frameRate);
+        p5.frameRate(settings.frameRate);
+        settings.generateRandomArray(p5);
 
-        generateRandomArray(p5, w, values);
-
-        quicksortBtn.addEventListener("click", () => {
-            sorting = true;
-            quickSort(values, 0, values.length - 1, states, sorting);
-        });
-
-        bubblesortBtn.addEventListener("click", () => {
-            sorting = true;
-            bubbleSort(values, states);
-        });
-
-        selectionSortBtn.addEventListener("click", () => {
-            sorting = true;
-            selectionSort(values, states);
-        });
-
-        radixSortBtn.addEventListener("click", () => {
-            sorting = true;
-            radixSort(values, states);
-        });
-
-        mergeSortBtn.addEventListener("click", () => {
-            sorting = true;
-            mergeSort(values, states);
-        });
-
-        insertionSortBtn.addEventListener("click", () => {
-            sorting = true;
-            insertionSort(values, states);
-        });
-
-        heapSortBtn.addEventListener("click", () => {
-            sorting = true;
-            heapSort(values, states);
-        });
+        genericSortBtnListener(bubblesortBtn, settings, bubbleSort);
+        genericSortBtnListener(quicksortBtn, settings, qsort);
+        genericSortBtnListener(selectionSortBtn, settings, selectionSort);
+        genericSortBtnListener(radixSortBtn, settings, radixSort);
+        genericSortBtnListener(mergeSortBtn, settings, mergeSort);
+        genericSortBtnListener(insertionSortBtn, settings, insertionSort);
+        genericSortBtnListener(heapSortBtn, settings, heapSort);
 
         resetBtn.addEventListener("click", () => {
-            if (!sorting) {
-                states = [];
-                sorted = false;
-                sorting = false;
-                generateRandomArray(p5, w, values);
+            if (!settings.sorting) {
+                settings.reset(p5);
             }
         });
     };
 
     p5.draw = async () => {
         p5.background(0);
-        for (let i = 0; i < values.length; i++) {
+        for (let i = 0; i < settings.values.length; i++) {
             p5.noStroke();
-            if (states[i] === state1) {
+            if (settings.states[i] === settings.state1) {
                 p5.fill("#F26419");
-            } else if (states[i] === state2) {
+            } else if (settings.states[i] === settings.state2) {
                 p5.fill("#1C5D99");
-            } else if (states[i] === pivotState) {
+            } else if (settings.states[i] === settings.state3) {
                 p5.fill("#961D4E");
-            } else if (states[i] === sortedState) {
+            } else if (settings.states[i] === settings.sortedState) {
                 p5.fill("#006400");
             } else {
                 p5.fill(255);
             }
-            p5.rect(i * w, p5.height - values[i], w, values[i]);
+            p5.rect(
+                i * settings.w,
+                p5.height - settings.values[i],
+                settings.w,
+                settings.values[i],
+            );
         }
-        if (!sorted && sorting && isArraySorted(values)) {
-            sorted = true;
-            sorting = false;
-            console.log(values);
+        if (!settings.sorted && settings.sorting) {
+            settings.isArraySorted();
+        } else if (settings.sorted) {
+            console.log(settings.values);
         }
     };
 });

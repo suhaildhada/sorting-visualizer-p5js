@@ -1,6 +1,10 @@
 import { swap } from "../helpers/swap.js";
 
-export async function quickSort(arr, start, end, states, sorting) {
+export async function qsort(arr, states) {
+    await quickSort(arr, 0, arr.length - 1, states);
+}
+
+async function quickSort(arr, start, end, states) {
     if (start >= end) {
         return;
     }
@@ -9,8 +13,8 @@ export async function quickSort(arr, start, end, states, sorting) {
     states[index] = -1;
 
     await Promise.all([
-        quickSort(arr, start, index - 1, states, sorting),
-        quickSort(arr, index + 1, end, states, sorting),
+        quickSort(arr, start, index - 1, states),
+        quickSort(arr, index + 1, end, states),
     ]);
 }
 
