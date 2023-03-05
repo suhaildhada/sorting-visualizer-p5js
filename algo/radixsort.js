@@ -1,22 +1,22 @@
 import { sleep } from "../helpers/sleep.js";
 
-export async function radixSort(arr, states) {
+export async function radixSort(arr, states, settings) {
     let maxDigits = 0;
     let maxDigitsIdx = 0;
     for (let i = 0; i < arr.length; i++) {
         let len = arr[i].toString().length;
-        states[i] = 1;
+        states[i] = settings.state2;
         if (len > maxDigits) {
-            states[maxDigitsIdx] = -1;
+            states[maxDigitsIdx] = settings.noState;
             maxDigitsIdx = i;
-            states[maxDigitsIdx] = 2;
+            states[maxDigitsIdx] = settings.state3;
             maxDigits = len;
         }
         if (i != maxDigitsIdx) {
-            states[i] = -1;
+            states[i] = settings.noState;
         }
     }
-    states[maxDigitsIdx] = -1;
+    states[maxDigitsIdx] = settings.noState;
 
     let temp = [];
     for (let digit = 0; digit < maxDigits; digit++) {
@@ -36,22 +36,22 @@ export async function radixSort(arr, states) {
             let digitVal = Math.floor(val / Math.pow(10, digit)) % 10;
             let idx = count[digitVal] - 1;
             states[i] = 0;
-            states[idx] = 1;
+            states[idx] = settings.state2;
             temp[idx] = val;
             count[digitVal]--;
             await sleep(10);
-            states[i] = -1;
+            states[i] = settings.noState;
         }
 
         for (let i = 0; i < states.length; i++) {
-            states[i] = -1;
+            states[i] = settings.noState;
         }
 
         for (let i = 0; i < temp.length; i++) {
-            states[i] = 2;
+            states[i] = settings.state3;
             arr[i] = temp[i];
             await sleep(10);
-            states[i] = -1;
+            states[i] = settings.noState;
         }
     }
 }

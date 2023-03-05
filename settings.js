@@ -5,8 +5,9 @@ export default class Settings {
         this.frameRate = 60;
         this.state1 = 0;
         this.state2 = 1;
-        this.sortedState = 100;
         this.state3 = 2;
+        this.noState = -1;
+        this.sortedState = 3;
         this.sorting = false;
         this.sorted = false;
         this.w = 50;

@@ -70,8 +70,6 @@ new p5((p5) => {
         }
         if (!settings.sorted && settings.sorting) {
             settings.isArraySorted();
-        } else if (settings.sorted) {
-            console.log(settings.values);
         }
     };
 });
