@@ -9,7 +9,7 @@ import { radixSort } from "./algo/radixsort.js";
 import { generateRandomArray } from "./helpers/generateRandomArray.js";
 import { isArraySorted } from "./helpers/isArraySorted.js";
 let values = [];
-let w = 10;
+let w = 50;
 let frameRate = 120;
 let states = [];
 
