@@ -1,12 +1,13 @@
 import { bubbleSort } from "../algo/bubblesort.js";
 import { selectionSort } from "../algo/selectionsort.js";
+import { mergeSort } from "./algo/mergesort.js";
 import { quickSort } from "./algo/quicksort.js";
 import { radixSort } from "./algo/radixsort.js";
 
 import { generateRandomArray } from "./helpers/generateRandomArray.js";
 import { isArraySorted } from "./helpers/isArraySorted.js";
 let values = [];
-let w = 50;
+let w = 10;
 let frameRate = 120;
 let states = [];
 
@@ -20,6 +21,7 @@ let bubblesortBtn = document.getElementById("bubble-sort");
 let selectionSortBtn = document.getElementById("selection-sort");
 let resetBtn = document.getElementById("reset-btn");
 let radixSortBtn = document.getElementById("radix-sort");
+let mergeSortBtn = document.getElementById("merge-sort");
 
 let sorting = false;
 let sorted = false;
@@ -46,6 +48,11 @@ new p5((p5) => {
         radixSortBtn.addEventListener("click", () => {
             sorting = true;
             radixSort(values, states);
+        });
+
+        mergeSortBtn.addEventListener("click", () => {
+            sorting = true;
+            mergeSort(values, states);
         });
 
         resetBtn.addEventListener("click", () => {
@@ -78,6 +85,7 @@ new p5((p5) => {
         if (!sorted && sorting && isArraySorted(values)) {
             sorted = true;
             sorting = false;
+            console.log(values);
         }
         //Try to make it work... not necessary.
         // if (sorted) {

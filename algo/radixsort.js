@@ -6,13 +6,10 @@ export async function radixSort(arr, states) {
     for (let i = 0; i < arr.length; i++) {
         let len = arr[i].toString().length;
         states[i] = 1;
-        await sleep(100);
         if (len > maxDigits) {
             states[maxDigitsIdx] = -1;
-            await sleep(100);
             maxDigitsIdx = i;
             states[maxDigitsIdx] = 2;
-            await sleep(100);
             maxDigits = len;
         }
         if (i != maxDigitsIdx) {
@@ -42,7 +39,7 @@ export async function radixSort(arr, states) {
             states[idx] = 1;
             temp[idx] = val;
             count[digitVal]--;
-            await sleep(100);
+            await sleep(10);
             states[i] = -1;
         }
 
@@ -53,7 +50,7 @@ export async function radixSort(arr, states) {
         for (let i = 0; i < temp.length; i++) {
             states[i] = 2;
             arr[i] = temp[i];
-            await sleep(100);
+            await sleep(10);
             states[i] = -1;
         }
     }
