@@ -9,7 +9,7 @@ import { radixSort } from "./algo/radixsort.js";
 import { generateRandomArray } from "./helpers/generateRandomArray.js";
 import { isArraySorted } from "./helpers/isArraySorted.js";
 let values = [];
-let w;
+let w = 50;
 let frameRate = 120;
 let states = [];
 
@@ -28,22 +28,21 @@ let radixSortBtn = document.getElementById("radix-sort");
 let mergeSortBtn = document.getElementById("merge-sort");
 let insertionSortBtn = document.getElementById("insertion-sort");
 let heapSortBtn = document.getElementById("heap-sort");
-let slider = document.getElementById("array-size");
+// let slider = document.getElementById("array-size");
 
 let sorting = false;
 let sorted = false;
 new p5((p5) => {
     p5.setup = () => {
+        const divPadding = 4;
+
         let canvasHeight = p5.windowHeight - container.offsetHeight;
-        p5.createCanvas(p5.windowWidth, canvasHeight);
+        // 4 is padding of div container
+        p5.createCanvas(p5.windowWidth - divPadding, canvasHeight);
         p5.frameRate(frameRate);
-        w = slider.value;
+
         generateRandomArray(p5, w, values);
-        slider.oninput = function () {
-            if (sorting) return;
-            w = maxSize - this.value;
-            generateRandomArray(p5, w, values, sorting);
-        };
+
         quicksortBtn.addEventListener("click", () => {
             sorting = true;
             quickSort(values, 0, values.length - 1, states, sorting);
@@ -109,18 +108,7 @@ new p5((p5) => {
         if (!sorted && sorting && isArraySorted(values)) {
             sorted = true;
             sorting = false;
+            console.log(values);
         }
-        //Try to make it work... not necessary.
-        // if (sorted) {
-        //   for (let i = 0; i < values.length; i++) {
-        //     states[i] = sortedState;
-        //     await sleep(100);
-        //   }
-        //   for (let i = 0; i < values.length; i++) {
-        //     states[i] = -1;
-        //     await sleep(100);
-        //   }
-        //   sorted = false;
-        // }
     };
 });
