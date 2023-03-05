@@ -1,5 +1,6 @@
 import { bubbleSort } from "../algo/bubblesort.js";
 import { selectionSort } from "../algo/selectionsort.js";
+import { heapSort } from "./algo/heapsort.js";
 import { insertionSort } from "./algo/insertionsort.js";
 import { mergeSort } from "./algo/mergesort.js";
 import { quickSort } from "./algo/quicksort.js";
@@ -8,7 +9,7 @@ import { radixSort } from "./algo/radixsort.js";
 import { generateRandomArray } from "./helpers/generateRandomArray.js";
 import { isArraySorted } from "./helpers/isArraySorted.js";
 let values = [];
-let w = 50;
+let w = 10;
 let frameRate = 120;
 let states = [];
 
@@ -24,6 +25,7 @@ let resetBtn = document.getElementById("reset-btn");
 let radixSortBtn = document.getElementById("radix-sort");
 let mergeSortBtn = document.getElementById("merge-sort");
 let insertionSortBtn = document.getElementById("insertion-sort");
+let heapSortBtn = document.getElementById("heap-sort");
 
 let sorting = false;
 let sorted = false;
@@ -62,6 +64,11 @@ new p5((p5) => {
             insertionSort(values, states);
         });
 
+        heapSortBtn.addEventListener("click", () => {
+            sorting = true;
+            heapSort(values, states);
+        });
+
         resetBtn.addEventListener("click", () => {
             if (!sorting) {
                 states = [];
@@ -92,7 +99,6 @@ new p5((p5) => {
         if (!sorted && sorting && isArraySorted(values)) {
             sorted = true;
             sorting = false;
-            console.log(values);
         }
         //Try to make it work... not necessary.
         // if (sorted) {
