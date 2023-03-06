@@ -6,6 +6,7 @@ export async function selectionSort(arr, states, settings) {
         let mni = i;
         states[mni] = settings.state2;
         for (let j = i + 1; j < arr.length; j++) {
+            states[j] = settings.state1;
             if (arr[j] < arr[mni]) {
                 states[mni] = settings.noState;
                 await sleep(50);
@@ -13,12 +14,15 @@ export async function selectionSort(arr, states, settings) {
                 states[mni] = settings.state2;
                 await sleep(50);
             }
+            await sleep(50);
+
+            states[j] = settings.noState;
         }
 
         if (mni != i) {
             states[mni] = settings.state3;
             states[i] = settings.state3;
-            await swap(arr, mni, i);
+            await swap(arr, mni, i, 50);
         }
         states[i] = settings.noState;
         states[mni] = settings.noState;
