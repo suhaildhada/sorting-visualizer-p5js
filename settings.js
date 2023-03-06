@@ -10,7 +10,7 @@ export default class Settings {
         this.sortedState = 3;
         this.sorting = false;
         this.sorted = false;
-        this.w = 50;
+        this.w = 10;
     }
 
     generateRandomArray(p5) {
