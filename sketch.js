@@ -5,6 +5,7 @@ import { mergeSort } from "./algo/mergesort.js";
 import { qsort } from "./algo/quicksort.js";
 import { radixSort } from "./algo/radixsort.js";
 import { selectionSort } from "./algo/selectionsort.js";
+import { shellSort } from "./algo/shellSort.js";
 import { genericSortBtnListener } from "./helpers/eventListners.js";
 
 import Settings from "./settings.js";
@@ -18,6 +19,7 @@ let radixSortBtn = document.getElementById("radix-sort");
 let mergeSortBtn = document.getElementById("merge-sort");
 let insertionSortBtn = document.getElementById("insertion-sort");
 let heapSortBtn = document.getElementById("heap-sort");
+let shellSortBtn = document.getElementById("shell-sort");
 
 let settings = new Settings();
 
@@ -38,6 +40,7 @@ new p5((p5) => {
         genericSortBtnListener(mergeSortBtn, settings, mergeSort);
         genericSortBtnListener(insertionSortBtn, settings, insertionSort);
         genericSortBtnListener(heapSortBtn, settings, heapSort);
+        genericSortBtnListener(shellSortBtn, settings, shellSort);
 
         resetBtn.addEventListener("click", () => {
             if (!settings.sorting) {
