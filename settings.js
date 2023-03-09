@@ -11,6 +11,7 @@ export default class Settings {
         this.sorting = false;
         this.sorted = false;
         this.w = 10;
+        this.time = 0;
     }
 
     generateRandomArray(p5) {

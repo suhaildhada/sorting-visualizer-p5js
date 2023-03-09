@@ -73,6 +73,11 @@ new p5((p5) => {
         }
         if (!settings.sorted && settings.sorting) {
             settings.isArraySorted();
+            if (settings.sorted) {
+                let mili = performance.now() - settings.time;
+                let seconds = Math.floor(mili / 1000);
+                console.log(`${seconds}s`);
+            }
         }
     };
 });

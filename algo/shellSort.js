@@ -14,13 +14,13 @@ export async function shellSort(arr, states, settings) {
                 states[j] = settings.state2;
                 states[j - gap] = settings.state3;
                 arr[j] = arr[j - gap];
-                await sleep(50);
+                await sleep(10);
                 states[j] = settings.noState;
                 states[j - gap] = settings.noState;
             }
             states[j] = settings.state2;
             arr[j] = key;
-            await sleep(50);
+            await sleep(10);
             states[j] = settings.noState;
         }
 
