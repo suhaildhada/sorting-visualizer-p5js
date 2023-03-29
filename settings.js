@@ -28,7 +28,6 @@ export default class Settings {
                 return;
             }
         }
-        console.log("Hello");
         this.sorted = true;
         this.sorting = false;
     }
